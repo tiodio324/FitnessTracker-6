@@ -1,0 +1,82 @@
+@use '@/styles/globalColors' as *;
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+// Fitness-Tracker: Энергичные карточки с градиентной рамкой
+.form {
+  @include flex-column;
+  gap: $spacing-xl;
+}
+
+.roleSelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-lg;
+
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.roleButton {
+  @include flex-column;
+  @include flex-center;
+  gap: $spacing-md;
+  padding: $spacing-xl;
+  background: $color-bg-primary;
+  border: none;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: all $transition-smooth;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $radius-xl;
+    padding: 3px;
+    background: linear-gradient(135deg, $color-border-light, $color-border-light);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: background $transition-smooth;
+  }
+  
+  svg {
+    width: 44px;
+    height: 44px;
+    color: $color-text-muted;
+    transition: all $transition-smooth;
+  }
+  
+  span {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-secondary;
+  }
+  
+  &:hover {
+    transform: translateY(-6px);
+    
+    &::before {
+      background: linear-gradient(135deg, $color-primary, $color-accent);
+    }
+    svg { color: $color-primary; transform: scale(1.1); }
+  }
+  
+  &.active {
+    &::before {
+      background: linear-gradient(135deg, $color-primary, $color-primary-dark);
+      padding: 4px;
+    }
+    svg { color: $color-primary; }
+    span { color: $color-primary; }
+    box-shadow: 0 12px 32px rgba($color-primary, 0.25);
+  }
+}
+
+.actions {
+  @include flex-end;
+  gap: $spacing-md;
+}

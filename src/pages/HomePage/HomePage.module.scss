@@ -1,0 +1,184 @@
+@use '@/styles/globalColors' as *;
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+// Fitness-Tracker: Энергичный спортивный стиль
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+}
+
+.welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $spacing-xl;
+  padding: $spacing-2xl;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 50%, darken($color-primary-dark, 10%) 100%);
+  border-radius: $radius-xl;
+  color: $color-text-inverse;
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 100%);
+  }
+  
+  @include mobile {
+    flex-direction: column;
+    text-align: center;
+    padding: $spacing-xl;
+  }
+}
+
+.welcomeContent {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+}
+
+.welcomeTitle {
+  font-family: $font-family-primary;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-md;
+  text-transform: uppercase;
+  
+  @include mobile { font-size: $font-size-2xl; }
+}
+
+.welcomeText {
+  font-size: $font-size-md;
+  opacity: 0.9;
+  margin: 0 0 $spacing-lg;
+  line-height: $line-height-relaxed;
+}
+
+.welcomeDecor {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+  height: 200px;
+  color: rgba(255, 255, 255, 0.15);
+  
+  @include mobile { display: none; }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-lg;
+  
+  @include tablet { grid-template-columns: repeat(2, 1fr); }
+  @include mobile { grid-template-columns: 1fr; }
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $spacing-sm;
+  padding: $spacing-xl !important;
+  border-radius: $radius-xl !important;
+  transition: all $transition-smooth;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  }
+  
+  &.primary .statIcon { background: linear-gradient(135deg, $color-primary, $color-primary-dark); }
+  &.success .statIcon { background: linear-gradient(135deg, $color-success, darken($color-success, 15%)); }
+  &.warning .statIcon { background: linear-gradient(135deg, $color-warning, darken($color-warning, 15%)); }
+  &.info .statIcon { background: linear-gradient(135deg, $color-info, darken($color-info, 15%)); }
+}
+
+.statIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-full;
+  color: $color-text-inverse;
+  
+  svg { width: 32px; height: 32px; }
+}
+
+.statContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statValue {
+  font-family: $font-family-primary;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.statTitle {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sectionTitle {
+  font-family: $font-family-primary;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-lg;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.actionCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $spacing-lg;
+}
+
+.actionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $spacing-sm;
+  padding: $spacing-xl !important;
+  border-radius: $radius-xl !important;
+  transition: all $transition-smooth;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba($color-primary, 0.15);
+  }
+  
+  h3 { font-size: $font-size-lg; font-weight: $font-weight-bold; color: $color-text-primary; margin: 0; }
+  p { font-size: $font-size-sm; color: $color-text-muted; margin: 0; }
+}
+
+.actionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, $color-primary, $color-primary-dark);
+  border-radius: $radius-full;
+  color: $color-text-inverse;
+  margin-bottom: $spacing-sm;
+  
+  svg { width: 32px; height: 32px; }
+}
