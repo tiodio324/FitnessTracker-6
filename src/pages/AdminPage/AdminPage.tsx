@@ -14,7 +14,7 @@ const muscleGroupOptions = [{ value: 'chest', label: 'Грудь' }, { value: 'b
 const mealTypeOptions = [{ value: 'breakfast', label: 'Завтрак' }, { value: 'lunch', label: 'Обед' }, { value: 'dinner', label: 'Ужин' }, { value: 'snack', label: 'Перекус' }];
 
 export const AdminPage = observer(() => {
-  const { workouts, exercises, meals, workoutsLoading, exercisesLoading, mealsLoading, createWorkout, updateWorkout, deleteWorkout, createExercise, updateExercise, deleteExercise, createMeal, deleteMeal } = dataStore;
+  const { workouts, exercises, meals, workoutsLoading, exercisesLoading, mealsLoading, createWorkout, updateWorkout, deleteWorkout, createExercise, updateExercise, deleteExercise, createMeal, updateMeal, deleteMeal } = dataStore;
   const [activeTab, setActiveTab] = useState<AdminTab>('workouts');
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
@@ -42,16 +42,21 @@ export const AdminPage = observer(() => {
 
   const handleSave = async () => {
     try {
+      let ok = true;
       if (activeTab === 'workouts') {
         if (!workoutForm.name) { uiStore.showError('Введите название'); return; }
-        if (modalMode === 'create') await createWorkout(workoutForm); else if (editingId) await updateWorkout(editingId, workoutForm);
+        if (modalMode === 'create') ok = (await createWorkout(workoutForm)) != null;
+        else ok = editingId ? await updateWorkout(editingId, workoutForm) : false;
       } else if (activeTab === 'exercises') {
         if (!exerciseForm.name) { uiStore.showError('Введите название'); return; }
-        if (modalMode === 'create') await createExercise(exerciseForm); else if (editingId) await updateExercise(editingId, exerciseForm);
+        if (modalMode === 'create') ok = (await createExercise(exerciseForm)) != null;
+        else ok = editingId ? await updateExercise(editingId, exerciseForm) : false;
       } else {
         if (!mealForm.name) { uiStore.showError('Введите название'); return; }
-        if (modalMode === 'create') await createMeal(mealForm);
+        if (modalMode === 'create') ok = (await createMeal(mealForm)) != null;
+        else ok = editingId ? await updateMeal(editingId, mealForm) : false;
       }
+      if (!ok) { uiStore.showError('Не удалось сохранить запись'); return; }
       uiStore.showSuccess(modalMode === 'create' ? 'Запись добавлена' : 'Запись обновлена');
       setModalOpen(false); resetForms();
     } catch { uiStore.showError('Ошибка сохранения'); }

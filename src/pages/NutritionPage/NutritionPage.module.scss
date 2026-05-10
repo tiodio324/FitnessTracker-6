@@ -12,6 +12,7 @@
 
 .filters { display: flex; gap: 1rem; margin-bottom: 1rem; padding: 1rem; }
 .filters > * { max-width: 200px; }
+.actions { display: flex; gap: 0.25rem; }
 .form { display: flex; flex-direction: column; gap: 1rem; }
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .modalFooter { display: flex; justify-content: flex-end; gap: 0.75rem; }
